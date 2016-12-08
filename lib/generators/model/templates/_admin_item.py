@@ -1,10 +1,9 @@
-class {{capitalize modelName}}Admin(admin.ModelAdmin):
+class {{capitalize modelName}}Admin({{#if order}}SortableAdminMixin, {{/if}}admin.ModelAdmin):
     {{#if isPrepopulated}}
-        prepopulated_fields = {"slug": ("{{prepopulated}}",)}
+    prepopulated_fields = {"slug": ("{{prepopulated}}",)}
     {{else}}
-    """Override this class or remove"""
     pass
     {{/if}}
 
 
-    admin.site.register({{capitalize modelName}}, {{capitalize modelName}}Admin)
+admin.site.register({{capitalize modelName}}, {{capitalize modelName}}Admin)

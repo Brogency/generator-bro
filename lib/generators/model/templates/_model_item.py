@@ -5,23 +5,24 @@ class {{capitalize modelName}}(models.Model):
     # your database fields
     {{/each}}
 
+    {{#if order}}
+        order = models.PositiveIntegerField(
+        default=0,
+        blank=False,
+        null=False
+    )
+
+    {{/if}}
     class Meta:
-        verbose_name = _("{{capitalize modelName}}")
-        verbose_name_plural = _("{{capitalize modelName}}s")
-
-    def __unicode__(self):
-        {{#if isNameOrSlug}}
-        return self.{{isNameOrSlug}}
-        {{else}}
-        return str(self.pk)
+        {{#if order}}
+        ordering = ('order', )
         {{/if}}
+        verbose_name = ''
+        verbose_name_plural = ''
+    {{#defSave}}
 
-        {{#defSave}}
-        def save(self, force_insert=False,
-                 force_update=False, using=None, update_fields=None):
-            """Override this method"""
-            super({{capitalize modelName}}, self).save(
-                force_insert, force_update, using, update_fields)
-
-        {{/defSave}}
-        # your custom methods
+    def save(self, force_insert=False,
+             force_update=False, using=None, update_fields=None):
+        super({{capitalize modelName}}, self).save(
+            force_insert, force_update, using, update_fields)
+    {{/defSave}}

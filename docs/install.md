@@ -4,5 +4,5 @@ For install generator you need [node.js](https://nodejs.org/about/) and [npm](ht
 After you install npm run next command.
 
 ```bash
-$ npm install -g git://github.com/lutowolk/generator-bro
+$ npm install -g git://github.com/bro-agency/generator-bro
 ```

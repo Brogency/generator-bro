@@ -15,17 +15,6 @@ name, user and password data.
 $ yo bro <projectName> [options]
 ```
 
-**Options**
-
-**--dbType** type for database backend, one of this: **postgresql_psycopg2**,
-**mysql**, **sqlite3** or **oracle**.
-
-**--dbUser** username for database.
-
-**--dbPassword** password for database.
-
-**--drf** default false.
-
 **Example:**
 
 ```bash
@@ -36,28 +25,36 @@ After this command will been complete, you get next file structure:
 
 ```
 my_project
-├─ .yo-rc.json
-├─ client
-└─ server
-   ├─ apps
-   |  └─ __init__.py
-   ├─ libs
-   ├─ contrib
-   ├─ config
-   |  ├─ settings
-   |  |  ├─ installed_apps.py
-   |  |  ├─ local.py
-   |  |  ├─ settings.py
-   |  |  ├─ __local.py
-   |  |  └─ __init__.py
-   |  ├─ urls.py
-   |  ├─ wsgi.py
-   |  └─ __init__.py
-   ├─ templates
-   |  └─ base.html
-   ├─ manage.py
-   ├─ requirments.txt
-   └─ __init__.py
+├── docker-compose.override.yml
+├── docker-compose.production.yml
+├── docker-compose.yml
+├── fabfile.py
+├── readme.md
+└── server
+    ├── apps
+    │   └── __init__.py
+    ├── config
+    │   ├── celery.py
+    │   ├── dashboard.py
+    │   ├── __init__.py
+    │   ├── settings
+    │   │   ├── celery.py
+    │   │   ├── constance.py
+    │   │   ├── dbmail.py
+    │   │   ├── grappelli.py
+    │   │   ├── __init__.py
+    │   │   ├── installed_apps.py
+    │   │   ├── locale.py
+    │   │   └── settings.py
+    │   ├── urls.py
+    │   └── wsgi.py
+    ├── docker-compose.test.yml
+    ├── dockerfile
+    ├── fabfile.py
+    ├── manage.py
+    ├── requirements.txt
+    └── static
+
 ```
 
 Description for this structure: |
@@ -73,47 +70,10 @@ server/config/settings | This package contain your project settings.
 server/config/settings/installed_apps.py | File contain tuple with your apps. Sub generator will update this file and append to it new apps names.
 server/config/urls.py | File contain root url conf for your apps. Sub generator will update this file and include to it new urlpatterns.
 
+# TODO not actual now
+
 !!! danger "Do not remove file .yo-rc.json"
     If you remove this file then others sub generators will not work for you project.
-
-### DRF option
-
-If you run command with drf option, project will be create with next features.
-
-```txt
-# requirments.txt
-
-...
-djangorestframework==3.1
-...
-```
-
-```python
-# server/config/settings/settings.py
-
-...
-
-##################################################################
-# Django rest framework
-##################################################################
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
-```
-
-```python
-# server/config/settings/installed_apps.py
-
-...
-
-INSTALLED_APPS = (
-    ...
-    'rest_framework',
-    ...
-)
 ```
 
 ## Sub
@@ -152,8 +112,6 @@ news
 |  └─ __init__.py
 ├─ factories
 |  └─ __init__.py
-├─ forms
-|  └─ __init__.py
 ├─ admin
 |  ├─ mixins
 |  |  └─ __init__.py
@@ -172,31 +130,6 @@ Next files will be update:|
 ----- | ------
 server/config/settings/installed_apps.py|To this file will be append string with name for new app.
 server/config/urls.py|To this file will be include urlpatterns from new app **server/apps/news/urls.py**.
-
-**DRF**
-
-If project created with **drf** option in app directory will be create more two empty packages:
-
-* serializers
-* viewsets
-
-To **urls.py** will be add next code:
-
-```python
-...
-
-from rest_framework import routers
-
-...
-
-################################################################
-# api urls
-################################################################
-
-router = routers.DefaultRouter()
-
-urlpatterns += patterns('', url(r'^api/', include(router.urls)))
-```
 
 ## Model
 
@@ -234,6 +167,8 @@ Arguments| for every field is not required. Args must be separated by commas. Th
 
 **--admin** file name when you want create admin class for model (set filename only without extension).
 
+**-o**, **--order** create field order, and add class Meta: ordering=('order', )
+
 **Example:**
 
 ```bash
@@ -244,14 +179,22 @@ This command create next code:
 
 ```python
 class News(models.Model):
-    title = models.CharField(max_length=255, verbose_name=_('title'))
-    content = models.TextField(verbose_name=_('content'))
-    hidden = models.CharField(default=False, verbose_name=_('hidden'))
-    created = models.DateTimeField(verbose_name=_('created'))
+    title = models.CharField(
+        max_length=255
+    )
+    content = models.TextField(
+        
+    )
+    hidden = models.CharField(
+        default=False
+    )
+    created = models.DateTimeField(
+        
+    )
 
     class Meta:
-        verbose_name = _('News')
-        verbose_name_plural = _('Newss')
+        verbose_name = ''
+        verbose_name_plural = ''
 ```
 
 <a name="shortnames"></a> Full list of short names for model fields
@@ -286,6 +229,7 @@ url        | URLField    |
 fk         | ForeignKey  |
 m2m        | ManyToManyField|
 o2o        | OneToOneField|
+redactor   | Redactor    |
 
 ## View
 
@@ -366,8 +310,6 @@ $ yo bro:serializer news.News
 This command create file news.py in serializers package:
 
 ```python
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from apps.news.models.news import News
 from rest_framework import serializers
 
@@ -417,8 +359,6 @@ $ yo bro:viewset news.News
 This command create file news.py in viewsets package and update urls.py for **news** app:
 
 ```python
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from apps.news.viewsets.news import NewsSerializer
 from apps.news.models.news import News
 from rest_framework import viewsets

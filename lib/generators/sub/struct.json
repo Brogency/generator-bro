@@ -13,12 +13,6 @@
         ]
       },
       {
-        "name": "forms",
-        "files": [
-          ["__init__.py", "init.py"]
-        ]
-      },
-      {
         "name": "models",
         "files": [
           ["__init__.py", "init.py"]
@@ -34,6 +28,20 @@
       },
       {
         "name": "views",
+        "files": [
+          ["__init__.py", "init.py"]
+        ],
+        "dirs": [
+          {
+            "name": "mixins",
+            "files": [
+              ["__init__.py", "init.py"]
+            ]
+          }
+        ]
+      },
+      {
+        "name": "viewsets",
         "files": [
           ["__init__.py", "init.py"]
         ],

@@ -1,14 +1,14 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from django.contrib import admin
 from {{appsDir}}.{{appName}}.models import {{capitalize modelName}}
+{{#if order}}
+from adminsortable2.admin import SortableAdminMixin
+{{/if}}
 
 
-class {{capitalize modelName}}Admin(admin.ModelAdmin):
+class {{capitalize modelName}}Admin({{#if order}}SortableAdminMixin, {{/if}}admin.ModelAdmin):
     {{#if isPrepopulated}}
     prepopulated_fields = {"slug": ("{{prepopulated}}",)}
     {{else}}
-    """Override this class or remove"""
     pass
     {{/if}}
 

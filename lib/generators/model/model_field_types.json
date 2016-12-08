@@ -32,5 +32,6 @@
   "url": {"name": "URLField"},
   "fk": {"name": "ForeignKey"},
   "m2m": {"name": "ManyToManyField"},
-  "o2o": {"name": "OneToOneField"}
+  "o2o": {"name": "OneToOneField"},
+  "redactor": {"name": "RedactorField"}
 }
