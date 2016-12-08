@@ -1,5 +1,7 @@
 from django.db import models
+{{#if hasRedactorField}}
 from redactor.fields import RedactorField
+{{/if}}
 
 
 class {{capitalize modelName}}(models.Model):
