@@ -1,0 +1,6 @@
+./media
+.git
+./htmlcov
+.coverage
+celerybeat-schedule
+

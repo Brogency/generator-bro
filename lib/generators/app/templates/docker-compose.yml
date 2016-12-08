@@ -1,0 +1,35 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.5
+
+  redis:
+    image: redis:3
+
+  celery:
+    build: ./server
+    command: celery -A config worker -B -l info
+    depends_on:
+    - db
+    - redis
+    environment:
+      DEBUG: 'True'
+      DATABASE_URL: 'postgres://postgres:@db:5432/postgres'
+      BROKER_URL: 'redis://redis'
+      REDIS_URL: 'redis://redis'
+      C_FORCE_ROOT: 'True'
+
+  server:
+    build: ./server
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+      - redis
+      - celery
+    environment:
+      SENTRY_DSN: 'http://7c87e53a39db4580b962c3df13ecd4df:71f0907781054a249f9d8068484e57e4@sentry.bro.agency/10'
+      DATABASE_URL: postgres://postgres@db/postgres
+      REDIS_URL: 'redis://redis'
+      BROKER_URL: 'redis://redis'

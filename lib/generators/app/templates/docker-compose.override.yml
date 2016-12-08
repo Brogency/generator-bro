@@ -1,0 +1,9 @@
+version: '2'
+services:
+  server:
+    volumes:
+    - ./server:/app/user
+
+  celery:
+    volumes:
+    - ./server:/app/user

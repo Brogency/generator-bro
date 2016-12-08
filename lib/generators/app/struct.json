@@ -2,62 +2,35 @@
   {
     "name": "{{appName}}",
     "files": [
-      [".yo-rc.json", "_yo-rc.json"]
+      ["docker-compose.override.yml", "docker-compose.override.yml"],
+      ["docker-compose.production.yml", "_docker-compose.production.yml"],
+      ["docker-compose.yml", "docker-compose.yml"],
+      ["fabfile.py", "fabfile.py"],
+      ["README.md", "README.md"],
+      [".yo-rc.json", "yo-rc.json"]
     ],
     "dirs": [
       {
-        "name": "client"
-      },
-      {
         "name": "server",
         "files": [
-          ["requirements.txt", "server/_requirements.txt"],
-          ["__init__.py", "server/init.py"],
-          ["manage.py", "server/manage.py"]
+          [".dockerignore", "server/.dockerignore"],
+          [".editorconfig", "server/.editorconfig"],
+          [".gitignore", "server/.npmignore"],
+          ["docker-compose.test.yml", "server/_docker-compose.test.yml"],
+          ["Dockerfile", "server/Dockerfile"],
+          ["fabfile.py", "server/_fabfile.py"],
+          ["manage.py", "server/manage.py"],
+          ["requirements.txt", "server/requirements.txt"]
         ],
         "dirs": [
           {
-            "name": "contrib",
-            "files": [
-              ["__init__.py", "server/init.py"]
-            ]
-          },
-          {
-            "name": "core",
-            "dirs": [
-              {
-                "name": "templates",
-                "files": [
-                  ["list_tag.html", "templates/list_tag.html"],
-                  ["form_tag.html", "templates/form_tag.html"]
-                ]
-              },
-              {
-                "name": "templatetags",
-                "files": [
-                  ["__init__.py", "server/init.py"],
-                  ["core.py", "server/core.py"]
-                ]
-              }
-            ],
-            "files": [
-              ["__init__.py", "server/init.py"]
-            ]
-          },
-          {
-            "name": "libs",
-            "files": [
-              ["__init__.py", "server/init.py"]
-            ]
-          },
-          {
             "name": "apps",
             "files": [
-              ["__init__.py", "server/init.py"]
+              ["__init__.py", "server/apps/__init__.py"]
             ]
           },
           {
-            "name": "templates"
+            "name": "static"
           },
           {
             "name": "config",
@@ -65,28 +38,27 @@
               {
                 "name": "settings",
                 "files": [
-                  ["installed_apps.py", "server/config/_installed_apps.py"],
-                  ["settings.py", "server/config/_settings.py"],
-                  ["__local.py", "server/config/_local.py"],
-                  ["__init__.py", "server/config/init.py"],
-                  ["local.py", "server/config/_local.py"]
+                  ["__init__.py", "server/config/settings/__init__.py"],
+                  ["celery.py", "server/config/settings/celery.py"],
+                  ["constance.py", "server/config/settings/constance.py"],
+                  ["dbmail.py", "server/config/settings/dbmail.py"],
+                  ["grappelli.py", "server/config/settings/_grappelli.py"],
+                  ["installed_apps.py", "server/config/settings/installed_apps.py"],
+                  ["locale.py", "server/config/settings/locale.py"],
+                  ["settings.py", "server/config/settings/settings.py"]
                 ]
               }
             ],
             "files": [
-              ["__init__.py", "server/init.py"],
-              ["wsgi.py", "server/config/_wsgi.py"],
-              ["urls.py", "server/config/_urls.py"]
+              ["__init__.py", "server/config/__init__.py"],
+              ["celery.py", "server/config/celery.py"],
+              ["dashboard.py", "server/config/dashboard.py"],
+              ["urls.py", "server/config/urls.py"],
+              ["wsgi.py", "server/config/wsgi.py"]
             ]
           }
         ]
       }
-    ]
-  },
-  {
-    "name": "{{appName}}/server/templates",
-    "files": [
-      ["base.html", "templates/_base.html"]
     ]
   }
 ]

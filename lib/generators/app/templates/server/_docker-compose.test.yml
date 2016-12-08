@@ -1,0 +1,16 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.5
+    ports:
+    - 5432
+
+  server:
+    image: api-{{appName}}-core
+    command: python manage.py test
+    ports:
+    - 8000:8000
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres@db/postgres
