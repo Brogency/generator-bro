@@ -3,9 +3,9 @@
 {% block content %}
 
 {% if form.instance.pk %}
-    {% url '{{appName}}:{{lower modelName}}.update' form.instance.pk as url_form %}
+    {% url '{{appName}}:{{cameltosnack modelName}}.update' form.instance.pk as url_form %}
 {% else %}
-    {% url '{{appName}}:{{lower modelName}}.create' as url_form %}
+    {% url '{{appName}}:{{cameltosnack modelName}}.create' as url_form %}
 {% endif %}
 
 <form action="\{{ url_form }}" method="POST" class="form-create">
@@ -23,12 +23,12 @@
     <fieldset>
         <legend>Links</legend>
         <div class="items__item__links">
-            {% url '{{appName}}:{{lower modelName}}.list' as list_url %}
+            {% url '{{appName}}:{{cameltosnack modelName}}.list' as list_url %}
             {% if list_url %}<a href="\{{ list_url }}">View all</a>{% endif %}
 
             {% if form.instance.pk %}
-            {% url '{{appName}}:{{lower modelName}}.delete' form.instance.pk as delete_url %}
-            {% url '{{appName}}:{{lower modelName}}.create' as create_url %}
+            {% url '{{appName}}:{{cameltosnack modelName}}.delete' form.instance.pk as delete_url %}
+            {% url '{{appName}}:{{cameltosnack modelName}}.create' as create_url %}
 
             {% if form.instance.get_absolute_url %}<a href="\{{ form.instance.get_absolute_url }}">Detail</a>{% endif %}
             {% if delete_url %}<a href="\{{ delete_url }}">Delete</a>{% endif %}

@@ -11,8 +11,8 @@
         </div>
 
         <div class="items__item__links">
-            {% url '{{appName}}:{{lower modelName}}.update' item.pk as update_url %}
-            {% url '{{appName}}:{{lower modelName}}.delete' item.pk as delete_url %}
+            {% url '{{appName}}:{{cameltosnack modelName}}.update' item.pk as update_url %}
+            {% url '{{appName}}:{{cameltosnack modelName}}.delete' item.pk as delete_url %}
 
             {% if update_url %}<a href="\{{ update_url }}">Update</a>{% endif %}
             {% if delete_url %}<a href="\{{ delete_url }}">Delete</a>{% endif %}
@@ -41,7 +41,7 @@
 
     <hr/>
 
-    {% url '{{appName}}:{{lower modelName}}.create' as create_url %}
+    {% url '{{appName}}:{{cameltosnack modelName}}.create' as create_url %}
 
     {% if create_url %}<a href="\{{ create_url }}">Create new item</a>{% endif %}
 </div>
