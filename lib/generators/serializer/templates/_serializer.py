@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from {{pyApp}}.models.{{cameltosnack modelName}} import {{modelName}}
+from {{pyApp}}.models import {{modelName}}
 
 
 class {{modelName}}Serializer(serializers.ModelSerializer):

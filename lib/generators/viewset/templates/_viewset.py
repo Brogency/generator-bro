@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from {{pyApp}}.models.{{cameltosnack modelName}} import {{modelName}}
-from {{pyApp}}.serializers.{{cameltosnack modelName}} import {{modelName}}Serializer
+from {{pyApp}}.models import {{modelName}}
+from {{pyApp}}.serializers import {{modelName}}Serializer
 
 
 class {{modelName}}ViewSet(viewsets.ModelViewSet):
