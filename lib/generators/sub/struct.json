@@ -2,7 +2,7 @@
   {
     "name": "{{apps}}/{{appName}}",
     "files": [
-      ["urls.py", "_urls.py"],
+      ["urls.py", "urls.py"],
       ["__init__.py", "init.py"]
     ],
     "dirs": [
